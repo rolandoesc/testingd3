@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>D3 Example</title>
+     <link rel="stylesheet" href="styles.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  </head>
+  <body>
+
+    <h2>IDH - Mexico</h2>
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary active">
+          <input type="radio" name="options" id="az" autocomplete="off" checked> From A to Z
+        </label>
+        <label class="btn btn-primary">
+          <input type="radio" name="options" id="za" autocomplete="off"> From Z to A
+        </label>
+      </div>
+
+
+
+    <svg class="bar-chart"></svg>
+
+  </body>
+
+  <script>
+  var data = [
+    {state: 'Mexico City', value: Math.random(), year: 2015},
+    {state: 'State of Mexico', value: Math.random(), year: 2015},
+    {state: 'Oaxaca', value: Math.random(), year: 2015},
+    {state: 'Queretaro', value: Math.random(), year: 2015},
+    {state: 'Puebla', value: Math.random(), year: 2015},
+    {state: 'Campeche', value: Math.random(), year: 2015},
+    {state: 'Baja California', value: Math.random(), year: 2015},
+    {state: 'Baja California Sur', value: Math.random(), year: 2015},
+    {state: 'Aguascaliente', value: Math.random(), year: 2015},
+    {state: 'Coahuila', value: Math.random(), year: 2015},
+    {state: 'Colima', value: Math.random(), year: 2015},
+    {state: 'Chiapas', value: Math.random(), year: 2015},
+    {state: 'Durango', value: Math.random(), year: 2015},
+    {state: 'Guanajuato', value: Math.random(), year: 2015},
+    {state: 'Guerrero', value: Math.random(), year: 2015},
+    {state: 'Hidalgo', value: Math.random(), year: 2015},
+    {state: 'Jalisco', value: Math.random(), year: 2015},
+    {state: 'Michoacán', value: Math.random(), year: 2015},
+    {state: 'Morelos', value: Math.random(), year: 2015},
+    {state: 'Nayarit', value: Math.random(), year: 2015},
+    {state: 'Nuevo León', value: Math.random(), year: 2015},
+    {state: 'Quintana Roo', value: Math.random(), year: 2015},
+    {state: 'San Luis Potosí', value: Math.random(), year: 2015},
+    {state: 'Sinaloa', value: Math.random(), year: 2015},
+    {state: 'Sonora', value: Math.random(), year: 2015},
+    {state: 'Tabasco', value: Math.random(), year: 2015},
+    {state: 'Tamaulipas', value: Math.random(), year: 2015},
+    {state: 'Tlaxcala', value: Math.random(), year: 2015},
+    {state: 'Veracruz', value: Math.random(), year: 2015},
+    {state: 'Yucatán', value: Math.random(), year: 2015},
+    {state: 'Zacatecas', value: Math.random(), year: 2015},
+    {state: 'Chihuahua', value: Math.random(), year: 2015},
+    {state: 'Mexico City', value: Math.random(), year: 2014},
+    {state: 'State of Mexico', value: Math.random(), year: 2014},
+    {state: 'Oaxaca', value: Math.random(), year: 2014},
+    {state: 'Queretaro', value: Math.random(), year: 2014},
+    {state: 'Puebla', value: Math.random(), year: 2014},
+    {state: 'Campeche', value: Math.random(), year: 2014},
+    {state: 'Baja California', value: Math.random(), year: 2014},
+    {state: 'Baja California Sur', value: Math.random(), year: 2014},
+    {state: 'Aguascaliente', value: Math.random(), year: 2014},
+    {state: 'Coahuila', value: Math.random(), year: 2014},
+    {state: 'Colima', value: Math.random(), year: 2014},
+    {state: 'Chiapas', value: Math.random(), year: 2014},
+    {state: 'Durango', value: Math.random(), year: 2014},
+    {state: 'Guanajuato', value: Math.random(), year: 2014},
+    {state: 'Guerrero', value: Math.random(), year: 2014},
+    {state: 'Hidalgo', value: Math.random(), year: 2014},
+    {state: 'Jalisco', value: Math.random(), year: 2014},
+    {state: 'Michoacán', value: Math.random(), year: 2014},
+    {state: 'Morelos', value: Math.random(), year: 2014},
+    {state: 'Nayarit', value: Math.random(), year: 2014},
+    {state: 'Nuevo León', value: Math.random(), year: 2014},
+    {state: 'Quintana Roo', value: Math.random(), year: 2014},
+    {state: 'San Luis Potosí', value: Math.random(), year: 2014},
+    {state: 'Sinaloa', value: Math.random(), year: 2014},
+    {state: 'Sonora', value: Math.random(), year: 2014},
+    {state: 'Tabasco', value: Math.random(), year: 2014},
+    {state: 'Tamaulipas', value: Math.random(), year: 2014},
+    {state: 'Tlaxcala', value: Math.random(), year: 2014},
+    {state: 'Veracruz', value: Math.random(), year: 2014},
+    {state: 'Yucatán', value: Math.random(), year: 2014},
+    {state: 'Zacatecas', value: Math.random(), year: 2014},
+    {state: 'Chihuahua', value: Math.random(), year: 2014},
+    {state: 'Mexico City', value: Math.random(), year: 2013},
+    {state: 'State of Mexico', value: Math.random(), year: 2013},
+    {state: 'Oaxaca', value: Math.random(), year: 2013},
+    {state: 'Queretaro', value: Math.random(), year: 2013},
+    {state: 'Puebla', value: Math.random(), year: 2013},
+    {state: 'Campeche', value: Math.random(), year: 2013},
+    {state: 'Baja California', value: Math.random(), year: 2013},
+    {state: 'Baja California Sur', value: Math.random(), year: 2013},
+    {state: 'Aguascaliente', value: Math.random(), year: 2013},
+    {state: 'Coahuila', value: Math.random(), year: 2013},
+    {state: 'Chiapas', value: Math.random(), year: 2013},
+    {state: 'Durango', value: Math.random(), year: 2013},
+    {state: 'Colima', value: Math.random(), year: 2013},
+    {state: 'Guanajuato', value: Math.random(), year: 2013},
+    {state: 'Guerrero', value: Math.random(), year: 2013},
+    {state: 'Hidalgo', value: Math.random(), year: 2013},
+    {state: 'Jalisco', value: Math.random(), year: 2013},
+    {state: 'Michoacán', value: Math.random(), year: 2013},
+    {state: 'Morelos', value: Math.random(), year: 2013},
+    {state: 'Nayarit', value: Math.random(), year: 2013},
+    {state: 'Nuevo León', value: Math.random(), year: 2013},
+    {state: 'Quintana Roo', value: Math.random(), year: 2013},
+    {state: 'San Luis Potosí', value: Math.random(), year: 2013},
+    {state: 'Sinaloa', value: Math.random(), year: 2013},
+    {state: 'Sonora', value: Math.random(), year: 2013},
+    {state: 'Tabasco', value: Math.random(), year: 2013},
+    {state: 'Tamaulipas', value: Math.random(), year: 2013},
+    {state: 'Tlaxcala', value: Math.random(), year: 2013},
+    {state: 'Veracruz', value: Math.random(), year: 2013},
+    {state: 'Yucatán', value: Math.random(), year: 2013},
+    {state: 'Zacatecas', value: Math.random(), year: 2013},
+    {state: 'Chihuahua', value: Math.random(), year: 2013},
+    {state: 'Mexico City', value: Math.random(), year: 2012},
+    {state: 'State of Mexico', value: Math.random(), year: 2012},
+    {state: 'Oaxaca', value: Math.random(), year: 2012},
+    {state: 'Queretaro', value: Math.random(), year: 2012},
+    {state: 'Puebla', value: Math.random(), year: 2012},
+    {state: 'Campeche', value: Math.random(), year: 2012},
+    {state: 'Baja California', value: Math.random(), year: 2012},
+    {state: 'Baja California Sur', value: Math.random(), year: 2012},
+    {state: 'Aguascaliente', value: Math.random(), year: 2012},
+    {state: 'Coahuila', value: Math.random(), year: 2012},
+    {state: 'Colima', value: Math.random(), year: 2012},
+    {state: 'Chiapas', value: Math.random(), year: 2012},
+    {state: 'Durango', value: Math.random(), year: 2012},
+    {state: 'Guanajuato', value: Math.random(), year: 2012},
+    {state: 'Guerrero', value: Math.random(), year: 2012},
+    {state: 'Hidalgo', value: Math.random(), year: 2012},
+    {state: 'Jalisco', value: Math.random(), year: 2012},
+    {state: 'Michoacán', value: Math.random(), year: 2012},
+    {state: 'Morelos', value: Math.random(), year: 2012},
+    {state: 'Nayarit', value: Math.random(), year: 2012},
+    {state: 'Nuevo León', value: Math.random(), year: 2012},
+    {state: 'Quintana Roo', value: Math.random(), year: 2012},
+    {state: 'San Luis Potosí', value: Math.random(), year: 2012},
+    {state: 'Sinaloa', value: Math.random(), year: 2012},
+    {state: 'Sonora', value: Math.random(), year: 2012},
+    {state: 'Tabasco', value: Math.random(), year: 2012},
+    {state: 'Tamaulipas', value: Math.random(), year: 2012},
+    {state: 'Tlaxcala', value: Math.random(), year: 2012},
+    {state: 'Veracruz', value: Math.random(), year: 2012},
+    {state: 'Yucatán', value: Math.random(), year: 2012},
+    {state: 'Zacatecas', value: Math.random(), year: 2012},
+    {state: 'Chihuahua', value: Math.random(), year: 2012},
+    {state: 'Mexico City', value: Math.random(), year: 2011},
+    {state: 'State of Mexico', value: Math.random(), year: 2011},
+    {state: 'Oaxaca', value: Math.random(), year: 2011},
+    {state: 'Queretaro', value: Math.random(), year: 2011},
+    {state: 'Puebla', value: Math.random(), year: 2011},
+    {state: 'Campeche', value: Math.random(), year: 2011},
+    {state: 'Baja California', value: Math.random(), year: 2011},
+    {state: 'Baja California Sur', value: Math.random(), year: 2011},
+    {state: 'Aguascaliente', value: Math.random(), year: 2011},
+    {state: 'Coahuila', value: Math.random(), year: 2011},
+    {state: 'Colima', value: Math.random(), year: 2011},
+    {state: 'Chiapas', value: Math.random(), year: 2011},
+    {state: 'Durango', value: Math.random(), year: 2011},
+    {state: 'Guanajuato', value: Math.random(), year: 2011},
+    {state: 'Guerrero', value: Math.random(), year: 2011},
+    {state: 'Hidalgo', value: Math.random(), year: 2011},
+    {state: 'Jalisco', value: Math.random(), year: 2011},
+    {state: 'Michoacán', value: Math.random(), year: 2011},
+    {state: 'Morelos', value: Math.random(), year: 2011},
+    {state: 'Nayarit', value: Math.random(), year: 2011},
+    {state: 'Nuevo León', value: Math.random(), year: 2011},
+    {state: 'Quintana Roo', value: Math.random(), year: 2011},
+    {state: 'San Luis Potosí', value: Math.random(), year: 2011},
+    {state: 'Sinaloa', value: Math.random(), year: 2011},
+    {state: 'Sonora', value: Math.random(), year: 2011},
+    {state: 'Tabasco', value: Math.random(), year: 2011},
+    {state: 'Tamaulipas', value: Math.random(), year: 2011},
+    {state: 'Tlaxcala', value: Math.random(), year: 2011},
+    {state: 'Veracruz', value: Math.random(), year: 2011},
+    {state: 'Yucatán', value: Math.random(), year: 2011},
+    {state: 'Zacatecas', value: Math.random(), year: 2011},
+    {state: 'Chihuahua', value: Math.random(), year: 2011}
+
+  ];
+  /*
+  //sorting by date
+  data.sort(function(a,b){
+    return a.year - b.year;
+  });
+
+
+// sorting by state method, from A to Z
+data.sort(function(a,b){
+  var stateA = a.state.toUpperCase();
+  var stateB = b.state.toUpperCase();
+  if( stateA < stateB ){
+      return -1;
+  }
+  if (stateA > stateB){
+    return 1;
+  }
+  return 0;
+
+});
+
+//sorting by
+
+var sortBy = {
+  az: d3.comparator()
+    .order(d3.ascending, function(d) { return d.state; }),
+  za: d3.comparator()
+    .order(d3.descending, function(d) { return d.state; })
+};
+// function
+
+function sortBy(w,z){
+  var a = w.state.toUpperCase();
+  var b = z.state.toUpperCase();
+  if( a < b ){
+      return -1;
+  }
+  if (a > b){
+    return 1;
+  }
+  return 0;
+}
+
+var x0 = x.domain(data.sort(this.checked ? function(a,b){ return a.state - b.state;} :
+function(a,b){return b.state - a.state;}));
+*/
+
+
+//nesting by state
+
+var states = d3.nest()
+            .key(function(d){return d.year;})
+            .entries(data);
+
+
+
+//setting the dimensions of the graph
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+  width = 960 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
+
+
+var min = d3.min(data, function(d){ return d.value});
+var max = d3.max(data, function(d){ return d.value});
+console.log([min,max]);
+
+// define x & y' scales & axises
+var formatPercent = d3.format(".0%");
+
+var x_scale = d3.scale.ordinal()
+              .rangeRoundBands([0,width], 0.2);
+
+var y_scale = d3.scale.linear()
+              .range([height,0]);
+
+var xAxis = d3.svg.axis()
+            .scale(x_scale)
+            .orient("bottom");
+
+var yAxis = d3.svg.axis()
+            .scale(y_scale)
+            .orient("left")
+            .tickFormat(formatPercent);
+
+x_scale.domain(data.map(function(d) { return d.state; }));
+y_scale.domain([0, d3.max(data, function(d) { return d.value; } )]);
+
+var svg = d3.select(".bar-chart")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+.append("g")
+.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//appending x axis
+svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0, " + height + ")").call(xAxis)
+          .selectAll("text")
+          .attr("y", 0)
+          .attr("x", 9)
+          .attr("dy", ".35em")
+          .attr("transform", "rotate(90)")
+          .style("text-anchor", "start");
+
+//appending y axis
+svg.append("g").attr("class", "y axis").call(yAxis).append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("IDH");
+
+//adding values to the chart
+svg.selectAll(".bar")
+          .data(states[4].values)
+          .enter()
+          .append("rect")
+          .attr("class", "bar")
+          .attr("x",function(d) { return x_scale(d.state); })
+          .attr("width", x_scale.rangeBand())
+          .attr("y", function(d) { return y_scale(d.value); })
+          .attr("height", function(d) { return height - y_scale(d.value); })
+
+
+
+console.log(states[4]);
+
+  </script>
+</html>
